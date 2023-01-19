@@ -1,0 +1,56 @@
+spring:
+  rabbitmq:
+    host: rabbit-external.demo-messaging
+    port: 5672
+    username: user
+    password: password
+    virtual-host: /
+  cloud:
+    stream:
+      function:
+        definition: consumer;consumer-rabbit
+
+      bindings:
+        consumer-in-0:
+          destination: kafka-demo-topic
+          binder: kafka
+        producer-out-0:
+          destination: kafka-demo-topic
+          binder: kafka
+        consumer-rabbit-in-0:
+          destination: rabbit-demo-exchange
+          group: rabbit-demo_queue
+          binder: rabbit
+          consumer:
+            concurrency: 2
+            max-attempts: 1
+        producer-rabbit-out-0:
+          destination: rabbit-demo-exchange
+          binder: rabbit
+
+      binders:
+        rabbit:
+          type: rabbit
+        kafka:
+          type: kafka
+
+      rabbit:
+        bindings:
+          producer-rabbit-out-0:
+            producer:
+              exchange-type: fanout
+              declare-exchange: true
+          consumer-rabbit-in-0:
+            consumer:
+              exchange-type: fanout
+              declare-exchange: false
+              bind-queue: true
+
+      kafka:
+        binder:
+          brokers: kafka-external.demo-messaging:9092
+          auto-crate-topics: true
+        bindings:
+          producer-out-0:
+            producer:
+              sync: false
