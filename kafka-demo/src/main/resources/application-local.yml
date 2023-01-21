@@ -1,8 +1,0 @@
-spring:
-  rabbitmq:
-    host: 192.168.0.108
-  cloud:
-    stream:
-      kafka:
-        binder:
-          brokers: 192.168.0.107:9092
