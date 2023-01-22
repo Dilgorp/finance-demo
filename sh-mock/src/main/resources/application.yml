@@ -1,0 +1,28 @@
+server:
+  port: 8081
+
+
+spring:
+  rabbitmq:
+    host: rabbit-external.demo-messaging
+    port: 5672
+    username: user
+    password: password
+    virtual-host: /
+  cloud:
+    stream:
+      bindings:
+        sh-events-out-0:
+          destination: sh.events
+          binder: rabbit
+
+      binders:
+        rabbit:
+          type: rabbit
+
+      rabbit:
+        bindings:
+          sh-events-out-0:
+            producer:
+              exchange-type: fanout
+              declare-exchange: true

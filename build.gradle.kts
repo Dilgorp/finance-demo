@@ -12,7 +12,6 @@ repositories {
 }
 
 subprojects {
-    val project = this
     apply {
         plugin("java")
         plugin("io.spring.dependency-management")
