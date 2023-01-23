@@ -1,5 +1,6 @@
 val springCloudVersion by extra { "4.0.0" }
 val fdVersion by extra { "0.0.1-SNAPSHOT" }
+val mockitoVersion by extra { "5.0.0" }
 
 plugins {
     java

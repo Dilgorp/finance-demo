@@ -1,5 +1,6 @@
 val fdVersion: String by rootProject.extra
 val springCloudVersion: String by rootProject.extra
+val mockitoVersion: String by rootProject.extra
 
 dependencies {
     implementation(project(":domain"))
@@ -14,6 +15,7 @@ dependencies {
     testImplementation("org.testcontainers:testcontainers")
     testImplementation("org.testcontainers:kafka")
     testImplementation("org.testcontainers:rabbitmq")
+    testImplementation("org.mockito:mockito-core:$mockitoVersion")
 }
 
 version = fdVersion
