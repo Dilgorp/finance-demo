@@ -1,7 +1,6 @@
 server:
   port: 8081
 
-
 spring:
   rabbitmq:
     host: rabbit-external.demo-messaging

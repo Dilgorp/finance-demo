@@ -7,10 +7,13 @@ dependencies {
 
     implementation(platform("org.testcontainers:testcontainers-bom:1.17.6"))
 
+    implementation("org.springframework.boot:spring-boot-starter-web")
+
     implementation("org.springframework.cloud:spring-cloud-stream:$springCloudVersion")
     implementation("org.springframework.cloud:spring-cloud-stream-binder-kafka:$springCloudVersion")
     implementation("org.springframework.cloud:spring-cloud-stream-binder-rabbit:$springCloudVersion")
 
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.cloud:spring-cloud-stream-test-binder:$springCloudVersion")
     testImplementation("org.testcontainers:testcontainers")
     testImplementation("org.testcontainers:kafka")

@@ -8,7 +8,7 @@ import ru.dilgorp.domain.message.payload.RecalculatePricePayload;
 import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true)
-@ToString
+@ToString(callSuper = true)
 public class RecalculatePriceMessage extends AbstractMessage<RecalculatePricePayload> {
     public RecalculatePriceMessage(@NonNull LocalDateTime createdAt,
                                    long dealId,

@@ -8,7 +8,7 @@ import ru.dilgorp.domain.message.payload.StatusChangedPayload;
 import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true)
-@ToString
+@ToString(callSuper = true)
 public class StatusChangedMessage extends AbstractMessage<StatusChangedPayload> {
     public StatusChangedMessage(@NonNull LocalDateTime createdAt,
                                 long dealId,
