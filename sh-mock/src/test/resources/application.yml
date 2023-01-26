@@ -1,0 +1,39 @@
+spring:
+  rabbitmq:
+    username: user
+    password: password
+    virtual-host: /
+  cloud:
+    stream:
+      function:
+        definition: consumer-test
+
+      bindings:
+        consumer-test-in-0:
+          destination: sh.events
+          group: consumer-test_demo_queue
+          binder: rabbit
+          consumer:
+            concurrency: 1
+            max-attempts: 1
+        sh-events-out-0:
+          destination: sh.events
+          binder: rabbit
+
+      binders:
+        rabbit:
+          type: rabbit
+
+      rabbit:
+        bindings:
+          sh-events-out-0:
+            producer:
+              exchange-type: fanout
+              declare-exchange: true
+          consumer-test-in-0:
+            consumer:
+              bind-queue: true
+              exchange-type: fanout
+logging:
+  level:
+    root: debug
