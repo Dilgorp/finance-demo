@@ -41,6 +41,16 @@ subprojects {
         }
     }
 
+    configurations {
+        all { exclude(module = "slf4j-log4j12") }
+        all { exclude(module = "slf4j-simple") }
+        all { exclude(module = "slf4j-log4j") }
+        all { exclude(module = "tomcat-jdbc") }
+        all { exclude(module = "tomcat-embed-el") }
+        all { exclude(module = "spring-boot-starter-tomcat") }
+        all { exclude(module = "org.apache.logging.log4j") }
+    }
+
     tasks.withType<JavaCompile> {
         options.encoding = "UTF-8"
     }

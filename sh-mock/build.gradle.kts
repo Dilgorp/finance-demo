@@ -4,6 +4,7 @@ val mockitoVersion: String by rootProject.extra
 dependencies {
     implementation(project(":domain"))
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-undertow")
 
     implementation("org.springframework.cloud:spring-cloud-stream")
     implementation("org.springframework.cloud:spring-cloud-stream-binder-kafka")
