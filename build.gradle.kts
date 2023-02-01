@@ -1,4 +1,3 @@
-val springCloudVersion by extra { "4.0.0" }
 val fdVersion by extra { "0.0.1-SNAPSHOT" }
 val mockitoVersion by extra { "5.0.0" }
 val jacksonAnnotationsVersion by extra { "2.14.1" }
@@ -27,10 +26,13 @@ subprojects {
     }
 
     dependencies {
-        "implementation"("org.springframework.boot:spring-boot-starter")
-        "testImplementation"("org.springframework.boot:spring-boot-starter-test")
-        "implementation"("org.projectlombok:lombok")
-        "annotationProcessor"("org.projectlombok:lombok")
+        implementation(platform("org.testcontainers:testcontainers-bom:1.17.6"))
+        implementation(platform("org.springframework.cloud:spring-cloud-dependencies:2022.0.1"))
+
+        implementation("org.springframework.boot:spring-boot-starter")
+        testImplementation("org.springframework.boot:spring-boot-starter-test")
+        implementation("org.projectlombok:lombok")
+        annotationProcessor("org.projectlombok:lombok")
     }
 
     configurations {
