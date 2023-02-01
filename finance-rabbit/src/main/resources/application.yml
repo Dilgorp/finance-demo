@@ -34,3 +34,9 @@ spring:
               declare-exchange: false
               bind-queue: true
 
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/finance_rabbit"
+    username: "postgres"
+    password: "postgres"
+  liquibase:
+    change-log: "classpath:changelog/changelog-master.xml"
