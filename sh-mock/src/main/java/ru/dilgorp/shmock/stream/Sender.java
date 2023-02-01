@@ -19,6 +19,8 @@ public class Sender {
     private final StreamBridge streamBridge;
 
     public void send(List<AbstractMessage<?>> messages) {
+        log.info("Sending {} messages", messages.size());
+
         for (AbstractMessage<?> message : messages) {
             log.debug("Sending message: {}", message);
             streamBridge.send(
