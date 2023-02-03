@@ -40,3 +40,7 @@ spring:
     password: "postgres"
   liquibase:
     change-log: "classpath:changelog/changelog-master.xml"
+
+feign:
+  sh-mock-client:
+    base-url: http://localhost:8081

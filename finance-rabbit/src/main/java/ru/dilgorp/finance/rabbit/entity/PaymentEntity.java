@@ -5,6 +5,8 @@ import lombok.Data;
 import ru.dilgorp.domain.enums.PaymentStatus;
 import ru.dilgorp.domain.enums.Service;
 
+import java.time.LocalDateTime;
+
 @Table(name = "payment")
 @Entity
 @Data
@@ -27,4 +29,7 @@ public class PaymentEntity {
     @Column(name = "status")
     @Enumerated(value = EnumType.STRING)
     private PaymentStatus status;
+
+    @Column(name = "date")
+    private LocalDateTime date;
 }
