@@ -7,6 +7,7 @@ import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 import ru.dilgorp.domain.message.AbstractMessage;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -19,7 +20,7 @@ public class Sender {
     private final StreamBridge streamBridge;
 
     public void send(List<AbstractMessage<?>> messages) {
-        log.info("Sending {} messages", messages.size());
+        log.info("Sending {} messages at {}", messages.size(), LocalDateTime.now());
 
         for (AbstractMessage<?> message : messages) {
             log.debug("Sending message: {}", message);

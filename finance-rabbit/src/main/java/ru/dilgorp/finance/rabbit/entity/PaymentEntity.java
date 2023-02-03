@@ -1,7 +1,9 @@
 package ru.dilgorp.finance.rabbit.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.dilgorp.domain.enums.PaymentStatus;
 import ru.dilgorp.domain.enums.Service;
 
@@ -10,9 +12,11 @@ import java.time.LocalDateTime;
 @Table(name = "payment")
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class PaymentEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 

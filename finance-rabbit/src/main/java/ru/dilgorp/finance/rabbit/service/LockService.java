@@ -12,26 +12,30 @@ import ru.dilgorp.finance.rabbit.repository.LockRepository;
 public class LockService {
     private final LockRepository lockRepository;
 
+    private final Object lock = new Object();
+
     @Transactional
     public void tryLock(Long dealId, Long seq) {
-        try {
-            var lock = lockRepository.findByDealIdAndSeq(dealId, seq);
+        synchronized (lock) {
+            try {
+                var lock = lockRepository.findByDealIdAndSeq(dealId, seq);
 
-            if (lock == null) {
-                lockRepository.insertInSeparateTransaction(dealId, seq);
-                log.info("Thread {} saves lock for locking of payment activities " +
-                                "(dealId={}, seq={})", Thread.currentThread().getId(),
-                        dealId, seq);
+                if (lock == null) {
+                    lockRepository.insertInSeparateTransaction(dealId, seq);
+                    log.info("Thread {} saves lock for locking of payment activities " +
+                                    "(dealId={}, seq={})", Thread.currentThread().getId(),
+                            dealId, seq);
+                }
+            } catch (Exception e) {
+                log.info("Thread {} tried to initialize the lock for deal " +
+                                "(dealId={}, seq={}): {}", Thread.currentThread().getId(),
+                        dealId, seq, e);
+
+                return;
             }
-        } catch (Exception e) {
-            log.info("Thread {} tried to initialize the lock for deal " +
-                            "(dealId={}, seq={}): {}", Thread.currentThread().getId(),
-                    dealId, seq, e);
 
-            return;
+            lockRepository.lock(dealId, seq);
+            log.info("Thread {} locks (dealId={}, seq={})", Thread.currentThread().getId(), dealId, seq);
         }
-
-        lockRepository.lock(dealId, seq);
-        log.info("Thread {} locks (dealId={}, seq={})", Thread.currentThread().getId(), dealId, seq);
     }
 }
