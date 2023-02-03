@@ -1,10 +1,9 @@
 package ru.dilgorp.finance.rabbit;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import ru.dilgorp.finance.rabbit.base.BaseTest;
 
-@SpringBootTest
-class FinanceRabbitApplicationTests {
+class FinanceRabbitApplicationTests extends BaseTest {
 
     @Test
     void contextLoads() {
