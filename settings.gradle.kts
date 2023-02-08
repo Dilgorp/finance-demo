@@ -4,5 +4,6 @@ include(
     "kafka-demo",
     "domain",
     "sh-mock",
-    "finance-rabbit"
+    "finance-rabbit",
+    "finance-kafka"
 )
