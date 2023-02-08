@@ -10,7 +10,7 @@ public class LongTimeController {
     @GetMapping("/long_time")
     @SneakyThrows
     public int getLongTime() {
-        int millis = 500;
+        int millis = 1000;
         Thread.sleep(millis);
         return millis;
     }
