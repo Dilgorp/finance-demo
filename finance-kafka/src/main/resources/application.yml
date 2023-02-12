@@ -55,6 +55,8 @@ spring:
           brokers: kafka-external.demo-messaging:9092
           auto-crate-topics: true
           auto-add-partitions: true
+          configuration:
+            max.poll.records: 100
         bindings:
           sh-events-out-0:
             producer:
