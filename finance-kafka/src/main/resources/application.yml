@@ -61,7 +61,7 @@ spring:
               sync: false
           sh-events-kafka-consumer-in-0:
             consumer:
-              auto-rebalance-enabled: false
+              auto-rebalance-enabled: true
 
   datasource:
     url: "jdbc:postgresql://postgres-external.demo-messaging:5432/finance_kafka"
