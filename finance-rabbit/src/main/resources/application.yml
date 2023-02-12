@@ -35,12 +35,12 @@ spring:
               bind-queue: true
 
   datasource:
-    url: "jdbc:postgresql://localhost:5432/finance_rabbit"
+    url: "jdbc:postgresql://postgres-external.demo-messaging:5432/finance_rabbit"
     username: "postgres"
-    password: "postgres"
+    password: "12345"
   liquibase:
     change-log: "classpath:changelog/changelog-master.xml"
 
 feign:
   sh-mock-client:
-    base-url: http://localhost:8081
+    base-url: http://sh-mock:8081
