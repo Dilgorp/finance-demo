@@ -1,0 +1,11 @@
+docker build . -t 127.0.0.1:5000/finance-kafka:0.0.1
+
+kubectl config set-context --current --namespace=demo-app
+
+kubectl apply -f finance-kafka-deployment.yml
+kubectl apply -f finance-kafka-service.yml
+
+kubectl delete deployment finance-kafka
+kubectl delete service finance-kafka
+
+docker push 127.0.0.1:5000/finance-kafka:0.0.4

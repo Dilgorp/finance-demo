@@ -1,0 +1,13 @@
+kubectl create namespace demo-messaging
+
+kubectl config set-context --current --namespace=demo-messaging
+
+kubectl apply -f zookeeper-pvc.yml
+kubectl apply -f zookeeper-deployment.yml
+kubectl apply -f zookeeper-service.yml
+kubectl apply -f zookeeper-external-service.yml
+
+kubectl delete deployment zookeeper
+kubectl delete service zookeeper
+kubectl delete pvc zookeeper-data
+kubectl delete service zookeeper-external

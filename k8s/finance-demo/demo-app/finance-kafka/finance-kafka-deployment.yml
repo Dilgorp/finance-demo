@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: finance-kafka
+  labels:
+    app: finance-kafka
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: finance-kafka
+  template:
+    metadata:
+      labels:
+        app: finance-kafka
+    spec:
+      containers:
+        - name: finance-kafka
+          image: localhost:5000/finance-kafka:0.0.4
+          ports:
+            - containerPort: 8083
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "512Mi"
+              cpu: "750m"

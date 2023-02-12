@@ -1,0 +1,14 @@
+kubectl create namespace demo-messaging
+
+kubectl config set-context --current --namespace=demo-messaging
+
+kubectl apply -f kafka-pvc.yml
+kubectl apply -f kafka-deployment.yml
+kubectl apply -f kafka-internal-service.yml
+kubectl apply -f kafka-external-service.yml
+
+kubectl delete deployment kafka
+kubectl delete service kafka
+kubectl delete service kafka-external
+kubectl delete pvc kafka-data
+

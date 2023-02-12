@@ -1,0 +1,11 @@
+docker build . -t 127.0.0.1:5000/finance-rabbit:0.0.1
+
+kubectl config set-context --current --namespace=demo-app
+
+kubectl apply -f finance-rabbit-deployment.yml
+kubectl apply -f finance-rabbit-service.yml
+
+kubectl delete deployment finance-rabbit
+kubectl delete service finance-rabbit
+
+docker push 127.0.0.1:5000/finance-rabbit:0.0.3

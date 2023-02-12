@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sh-mock
+  labels:
+    app: sh-mock
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sh-mock
+  template:
+    metadata:
+      labels:
+        app: sh-mock
+    spec:
+      containers:
+        - name: sh-mock
+          image: localhost:5000/sh-mock:0.0.2
+          ports:
+            - containerPort: 8081
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "512Mi"
+              cpu: "750m"

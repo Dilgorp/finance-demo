@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sh-mock-ingress
+  labels:
+    name: sh-mock-ingress
+spec:
+  rules:
+    - host: sh-mock.local
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: sh-mock
+                port:
+                  number: 8081

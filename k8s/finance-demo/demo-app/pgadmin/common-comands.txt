@@ -1,0 +1,17 @@
+kubectl create namespace demo-app
+
+kubectl config set-context --current --namespace=demo-app
+
+kubectl apply -f pgadmin-secret.yml
+kubectl apply -f pgadmin-pvc.yml
+kubectl apply -f pgadmin-deployment.yml
+kubectl apply -f pgadmin-service.yml
+kubectl apply -f pgadmin-ingress.yml
+
+kubectl delete deployment pgadmin
+kubectl delete pvc pgadmin-data
+kubectl delete ingress pgadmin-ingress
+kubectl delete service pgadmin
+kubectl delete secret pgadmin-secret
+
+

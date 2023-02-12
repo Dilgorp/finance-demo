@@ -1,0 +1,17 @@
+kubectl create namespace demo-app
+
+kubectl config set-context --current --namespace=demo-app
+
+kubectl apply -f streams-deployment.yml
+kubectl apply -f streams-service.yml
+kubectl apply -f streams-ingress.yml
+
+kubectl delete deployment streams
+kubectl delete service streams
+kubectl delete ingress streams-ingress
+
+27eee596f359
+
+docker tag finance/demo-streams:0.0.1 127.0.0.1:5000/demo-streams:0.0.1
+
+docker push 127.0.0.1:5000/demo-streams:0.0.1

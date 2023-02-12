@@ -1,0 +1,13 @@
+docker build . -t 127.0.0.1:5000/sh-mock:0.0.1
+
+kubectl config set-context --current --namespace=demo-app
+
+kubectl apply -f sh-mock-deployment.yml
+kubectl apply -f sh-mock-service.yml
+kubectl apply -f sh-mock-ingress.yml
+
+kubectl delete deployment sh-mock
+kubectl delete service sh-mock
+kubectl delete ingress sh-mock-ingress
+
+docker push 127.0.0.1:5000/sh-mock:0.0.2

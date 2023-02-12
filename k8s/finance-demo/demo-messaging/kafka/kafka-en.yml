@@ -1,0 +1,9 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: kafka-en
+spec:
+  type: ExternalName
+  externalName: kafka.demo-messaging.svc.cluster.local
+  ports:
+    - port: 80

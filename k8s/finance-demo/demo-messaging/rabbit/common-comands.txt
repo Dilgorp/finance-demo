@@ -1,0 +1,12 @@
+kubectl create namespace demo-messaging
+
+kubectl config set-context --current --namespace=demo-messaging
+
+kubectl apply -f rabbit-deployment.yml
+kubectl apply -f rabbit-internal-service.yml
+kubectl apply -f rabbit-external-service.yml
+
+kubectl delete deployment rabbit
+kubectl delete service rabbit
+kubectl delete service rabbit-external
+
