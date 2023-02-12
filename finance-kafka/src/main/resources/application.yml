@@ -1,0 +1,75 @@
+server:
+  port: 8083
+
+spring:
+  rabbitmq:
+    host: rabbit-external.demo-messaging
+    port: 5672
+    username: user
+    password: password
+    virtual-host: /
+  cloud:
+    stream:
+      function:
+        definition: sh-events; sh-events-kafka-consumer
+
+      bindings:
+        sh-events-in-0:
+          destination: sh.events
+          group: finance-kafka-queue
+          binder: rabbit
+          consumer:
+            concurrency: 2
+            max-attempts: 1
+        sh-events-out-0:
+          destination: finance-sh-events
+          binder: kafka
+          producer:
+            partition-key-expression: headers['partitionKey']
+            partition-count: 4
+        sh-events-kafka-consumer-in-0:
+          destination: finance-sh-events
+          group: finance-kafka-group
+          binder: kafka
+          consumer:
+            partitioned: true
+            concurrency: 2
+            max-attempts: 1
+
+      binders:
+        rabbit:
+          type: rabbit
+        kafka:
+          type: kafka
+
+      rabbit:
+        bindings:
+          sh-events-consumer-in-0:
+            consumer:
+              exchange-type: fanout
+              declare-exchange: false
+              bind-queue: true
+
+      kafka:
+        binder:
+          brokers: kafka-external.demo-messaging:9092
+          auto-crate-topics: true
+          auto-add-partitions: true
+        bindings:
+          sh-events-out-0:
+            producer:
+              sync: false
+          sh-events-kafka-consumer-in-0:
+            consumer:
+              auto-rebalance-enabled: false
+
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/finance_kafka"
+    username: "postgres"
+    password: "postgres"
+  liquibase:
+    change-log: "classpath:changelog/changelog-master.xml"
+
+feign:
+  sh-mock-client:
+    base-url: http://localhost:8081

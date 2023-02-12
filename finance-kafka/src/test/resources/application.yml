@@ -1,0 +1,10 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        sh-events-in-0:
+          destination: sh.events
+        sh-events-out-0:
+          destination: finance-sh-events
+        sh-events-kafka-consumer-in-0:
+          destination: sh.events
