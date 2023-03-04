@@ -33,6 +33,8 @@ subprojects {
         testImplementation("org.springframework.boot:spring-boot-starter-test")
         implementation("org.projectlombok:lombok")
         annotationProcessor("org.projectlombok:lombok")
+        testImplementation("org.projectlombok:lombok")
+        testAnnotationProcessor("org.projectlombok:lombok")
     }
 
     configurations {
