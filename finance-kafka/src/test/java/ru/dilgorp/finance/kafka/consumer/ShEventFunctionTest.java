@@ -25,9 +25,6 @@ class ShEventFunctionTest extends BaseStreamTest {
     private ShEventFunction shEventFunction;
 
     @Autowired
-    private TestMessageInterceptor testMessageInterceptor;
-
-    @Autowired
     private TestShEventsProducer testShEventsProducer;
 
     @Test
@@ -36,6 +33,9 @@ class ShEventFunctionTest extends BaseStreamTest {
                 LocalDateTime.now(),
                 1, 1, new RecalculatePricePayload(List.of(Service.SBR))
         );
+
+        var testMessageInterceptor = new TestMessageInterceptor();
+        shEventFunction.addMessageInterceptor(testMessageInterceptor);
 
         testMessageInterceptor.resetLatch();
         testShEventsProducer.send(message);

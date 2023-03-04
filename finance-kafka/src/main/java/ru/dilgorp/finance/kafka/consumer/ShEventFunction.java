@@ -25,4 +25,8 @@ public class ShEventFunction implements Function<AbstractMessage<?>, Message<?>>
                 .setHeader("partitionKey", dealId % 4)
                 .build();
     }
+
+    public void addMessageInterceptor(MessageInterceptor interceptor){
+        messageInterceptors.add(interceptor);
+    }
 }

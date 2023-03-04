@@ -5,12 +5,6 @@ spring:
         sh-events-test-out-0:
           destination: sh.events
           binder: rabbit
-        sh-events-in-0:
-          destination: sh.events
-        sh-events-out-0:
-          destination: finance-sh-events
-        sh-events-kafka-consumer-in-0:
-          destination: sh.events
 
       rabbit:
         bindings:
@@ -18,3 +12,8 @@ spring:
             producer:
               exchange-type: fanout
               declare-exchange: true
+      kafka:
+        bindings:
+          sh-events-kafka-consumer-in-0:
+            consumer:
+              auto-rebalance-enabled: false

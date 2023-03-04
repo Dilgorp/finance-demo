@@ -2,24 +2,25 @@ package ru.dilgorp.finance.kafka.interceptor;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import ru.dilgorp.domain.message.AbstractMessage;
+import org.springframework.messaging.MessageHeaders;
 
 import java.util.concurrent.CountDownLatch;
 
 @Getter
 @Slf4j
-public class TestMessageInterceptor implements MessageInterceptor {
+public class TestHeadersInterceptor implements HeadersInterceptor {
 
     protected CountDownLatch latch = new CountDownLatch(0);
 
-    private AbstractMessage<?> message;
-
+    private MessageHeaders headers;
     @Override
-    public void intercept(AbstractMessage<?> message) {
-        log.info("Message BEFORE intercept: latch = {}", latch);
-        this.message = message;
+    public void intercept(MessageHeaders headers) {
+        log.info("Headers BEFORE intercept: latch = {}", latch);
+
+        this.headers = headers;
         latch.countDown();
-        log.info("Message AFTER intercept: latch = {}", latch);
+
+        log.info("Headers AFTER intercept: latch = {}", latch);
     }
 
     public void resetLatch() {
