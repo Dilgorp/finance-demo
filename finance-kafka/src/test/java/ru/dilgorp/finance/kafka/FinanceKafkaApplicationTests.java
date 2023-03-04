@@ -1,13 +1,11 @@
 package ru.dilgorp.finance.kafka;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import ru.dilgorp.finance.kafka.base.BaseTest;
 
-@SpringBootTest
-class FinanceKafkaApplicationTests {
+class FinanceKafkaApplicationTests extends BaseTest {
 
     @Test
     void contextLoads() {
     }
-
 }

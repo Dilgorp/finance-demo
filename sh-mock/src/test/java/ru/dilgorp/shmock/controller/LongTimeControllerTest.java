@@ -18,7 +18,7 @@ class LongTimeControllerTest extends BaseControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        assertEquals("500", result.getResponse().getContentAsString());
+        assertEquals("1000", result.getResponse().getContentAsString());
     }
 
 }

@@ -6,6 +6,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.testcontainers.containers.JdbcDatabaseContainer;
 import org.testcontainers.containers.PostgreSQLContainerProvider;
 
+import java.util.List;
+
 public class PostgresContainerInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
     public static JdbcDatabaseContainer<?> postgresSQLContainer = new PostgreSQLContainerProvider()
@@ -15,6 +17,7 @@ public class PostgresContainerInitializer implements ApplicationContextInitializ
             .withPassword("sa");
 
     public void initialize(ConfigurableApplicationContext configurableApplicationContext) {
+        postgresSQLContainer.setPortBindings(List.of("35432:5432"));
         postgresSQLContainer.start();
 
         TestPropertyValues.of(

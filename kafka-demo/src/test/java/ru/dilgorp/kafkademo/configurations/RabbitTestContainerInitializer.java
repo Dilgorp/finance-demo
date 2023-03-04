@@ -18,7 +18,7 @@ public class RabbitTestContainerInitializer implements ApplicationContextInitial
 
     @Override
     public void initialize(@NotNull ConfigurableApplicationContext applicationContext) {
-        var rabbitPort = "25672";
+        var rabbitPort = "25671";
 
         RABBIT_CONTAINER.setExposedPorts(List.of());
         RABBIT_CONTAINER.setPortBindings(List.of(rabbitPort + ":5672"));
