@@ -1,4 +1,5 @@
 val fdVersion: String by rootProject.extra
+val wiremock: String by rootProject.extra
 
 version = fdVersion
 
@@ -26,4 +27,6 @@ dependencies {
     testImplementation("org.testcontainers:kafka")
     testImplementation("org.testcontainers:rabbitmq")
     testImplementation("org.testcontainers:postgresql")
+
+    testImplementation("com.github.tomakehurst:wiremock-jre8-standalone")
 }

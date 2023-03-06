@@ -21,7 +21,7 @@ public class PaymentService {
     private final PaymentRepository paymentRepository;
 
     @Transactional
-    public void processMessage(AbstractMessage<?> message){
+    public void processMessage(AbstractMessage<?> message) {
         long dealId = message.getDealId();
         long seq = message.getSeq();
         lockService.tryLock(dealId, seq);
@@ -36,16 +36,5 @@ public class PaymentService {
 
         payment.setDate(LocalDateTime.now());
         paymentRepository.save(payment);
-    }
-
-    @Transactional
-    public void testLock(){
-        long dealId = -1L;
-        long seq = -1L;
-        log.info("TRY TO LOCK (dealId={}, seq={})", dealId, seq);
-
-        lockService.tryLock(dealId, seq);
-
-        log.info("LOCK SUCCESSFUL (dealId={}, seq={})", dealId, seq);
     }
 }

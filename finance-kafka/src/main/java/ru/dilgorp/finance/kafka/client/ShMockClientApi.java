@@ -10,5 +10,5 @@ import org.springframework.web.bind.annotation.GetMapping;
 )
 public interface ShMockClientApi {
     @GetMapping(path = {"/long_time"}, consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public Long longTime();
+    Long longTime();
 }

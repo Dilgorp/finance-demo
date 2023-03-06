@@ -9,7 +9,7 @@ import ru.dilgorp.finance.kafka.client.ShMockClientApi;
 public class ShMockConnectorService {
     private final ShMockClientApi shMockClientApi;
 
-    public Long longTime(){
+    public Long longTime() {
         return shMockClientApi.longTime();
     }
 }
