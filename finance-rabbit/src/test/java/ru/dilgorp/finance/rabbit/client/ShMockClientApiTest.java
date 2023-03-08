@@ -1,35 +1,30 @@
-package ru.dilgorp.finance.kafka.base;
+package ru.dilgorp.finance.rabbit.client;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.event.ContextClosedEvent;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import ru.dilgorp.finance.kafka.configurations.KafkaTestContainersInitializer;
-import ru.dilgorp.finance.kafka.configurations.PostgresContainerInitializer;
-import ru.dilgorp.finance.kafka.configurations.RabbitTestContainerInitializer;
+import ru.dilgorp.finance.rabbit.base.BaseTest;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
-@ActiveProfiles("test")
-@ContextConfiguration(initializers = {
-        PostgresContainerInitializer.class,
-        RabbitTestContainerInitializer.class,
-        KafkaTestContainersInitializer.class,
-        BaseTest.WireMockInitializer.class
-})
-public abstract class BaseTest {
+@ContextConfiguration(
+        initializers = {ShMockClientApiTest.WireMockInitializer.class}
+)
+class ShMockClientApiTest extends BaseTest {
+
+    @Autowired
+    private ShMockClientApi shMockClientApi;
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
-    protected WireMockServer wireMockServer;
+    private WireMockServer wireMockServer;
 
     public static class WireMockInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
@@ -53,8 +48,8 @@ public abstract class BaseTest {
         }
     }
 
-    @BeforeEach
-    public void setUp(){
+    @Test
+    public void longTime_happyPath() {
         wireMockServer.stubFor(get(urlEqualTo("/long_time"))
                 .willReturn(
                         aResponse()
@@ -63,5 +58,9 @@ public abstract class BaseTest {
                                 .withBody("1000")
                 )
         );
+
+        var result = shMockClientApi.longTime();
+
+        assertEquals(1000L, result);
     }
 }

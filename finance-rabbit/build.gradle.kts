@@ -24,4 +24,6 @@ dependencies {
     testImplementation("org.testcontainers:testcontainers")
     testImplementation("org.testcontainers:rabbitmq")
     testImplementation("org.testcontainers:postgresql")
+
+    testImplementation("com.github.tomakehurst:wiremock-jre8-standalone")
 }
