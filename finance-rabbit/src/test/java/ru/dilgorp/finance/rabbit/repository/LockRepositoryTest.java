@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ru.dilgorp.finance.rabbit.base.BaseRepositoryTest;
 import ru.dilgorp.finance.rabbit.entity.LockEntity;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class LockRepositoryTest extends BaseRepositoryTest {
 
@@ -54,5 +54,4 @@ class LockRepositoryTest extends BaseRepositoryTest {
         assertEquals(dealId, result.getDealId());
         assertEquals(seq, result.getSeq());
     }
-
 }

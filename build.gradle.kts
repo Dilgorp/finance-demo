@@ -4,6 +4,7 @@ val jacksonAnnotationsVersion by extra { "2.14.1" }
 
 plugins {
     java
+    idea
     id("org.springframework.boot") version "3.0.1" apply false
     id("io.spring.dependency-management") version "1.1.0" apply false
 }
@@ -15,6 +16,7 @@ repositories {
 subprojects {
     apply {
         plugin("java")
+        plugin("idea")
         plugin("io.spring.dependency-management")
         plugin("org.springframework.boot")
     }

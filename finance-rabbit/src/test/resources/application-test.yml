@@ -1,0 +1,14 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        sh-events-test-out-0:
+          destination: sh.events
+          binder: rabbit
+
+      rabbit:
+        bindings:
+          sh-events-test-out-0:
+            producer:
+              exchange-type: fanout
+              declare-exchange: true

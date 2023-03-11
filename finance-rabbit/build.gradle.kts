@@ -27,3 +27,35 @@ dependencies {
 
     testImplementation("com.github.tomakehurst:wiremock-jre8-standalone")
 }
+
+sourceSets {
+    create("unitTest") {
+        java {
+            compileClasspath += sourceSets.main.get().output
+            runtimeClasspath += sourceSets.main.get().output
+            srcDir(file("src/test-unit/java"))
+        }
+    }
+}
+
+idea {
+    module {
+        testSourceDirs = testSourceDirs + project.sourceSets["unitTest"].java.srcDirs
+    }
+}
+
+val unitTestImplementation: Configuration by configurations.getting {
+    extendsFrom(configurations.testImplementation.get())
+}
+
+configurations["unitTestRuntimeOnly"].extendsFrom(configurations.testRuntimeOnly.get())
+
+val unitTestTask = task<Test>("unitTest") {
+    description = "Runs unit tests."
+    group = "verification"
+
+    testClassesDirs = sourceSets["unitTest"].output.classesDirs
+    classpath = sourceSets["unitTest"].runtimeClasspath
+}
+
+tasks.test { dependsOn(unitTestTask) }

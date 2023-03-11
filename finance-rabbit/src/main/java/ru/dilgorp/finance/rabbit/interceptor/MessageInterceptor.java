@@ -1,4 +1,4 @@
-package ru.dilgorp.finance.kafka.interceptor;
+package ru.dilgorp.finance.rabbit.interceptor;
 
 import ru.dilgorp.domain.message.AbstractMessage;
 

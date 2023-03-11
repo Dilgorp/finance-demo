@@ -37,15 +37,4 @@ public class PaymentService {
         payment.setDate(LocalDateTime.now());
         paymentRepository.save(payment);
     }
-
-    @Transactional
-    public void testLock(){
-        long dealId = -1L;
-        long seq = -1L;
-        log.info("TRY TO LOCK (dealId={}, seq={})", dealId, seq);
-
-        lockService.tryLock(dealId, seq);
-
-        log.info("LOCK SUCCESSFUL (dealId={}, seq={})", dealId, seq);
-    }
 }
