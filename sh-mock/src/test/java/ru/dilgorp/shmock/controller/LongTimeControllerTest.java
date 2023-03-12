@@ -2,6 +2,7 @@ package ru.dilgorp.shmock.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import ru.dilgorp.shmock.base.BaseControllerTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,6 +16,7 @@ class LongTimeControllerTest extends BaseControllerTest {
     public void getLongTime_happyPath() throws Exception {
         var result = mockMvc.perform(get("/long_time")
                         .contentType(MediaType.APPLICATION_JSON))
+                .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
                 .andReturn();
 

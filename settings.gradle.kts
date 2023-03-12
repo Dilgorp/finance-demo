@@ -5,5 +5,6 @@ include(
     "domain",
     "sh-mock",
     "finance-rabbit",
-    "finance-kafka"
+    "finance-kafka",
+    "pay"
 )
