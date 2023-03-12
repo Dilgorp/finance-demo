@@ -1,6 +1,7 @@
 package ru.dilgorp.finance.rabbit.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 import ru.dilgorp.domain.dto.PaymentDto;
 import ru.dilgorp.domain.dto.PaymentWithPayDto;
@@ -20,6 +21,7 @@ public class PaymentController {
     private final PayConnectorService payConnectorService;
 
     @GetMapping("/by_deal/{deal_id}/with_pay")
+    @Cacheable("paymentsWithPay")
     public List<PaymentWithPayDto> getByDealWithPay(
             @PathVariable("deal_id") Long dealId,
             @RequestParam(value = "services", required = false, defaultValue = "") List<Service> services
