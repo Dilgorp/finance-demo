@@ -6,11 +6,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.dilgorp.domain.enums.PaymentStatus;
 import ru.dilgorp.domain.message.AbstractMessage;
+import ru.dilgorp.domain.model.Payment;
 import ru.dilgorp.finance.rabbit.entity.PaymentEntity;
 import ru.dilgorp.finance.rabbit.repository.PaymentRepository;
 import ru.dilgorp.finance.rabbit.service.connector.ShMockConnectorService;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -29,12 +32,17 @@ public class PaymentService {
         var payment = new PaymentEntity(
                 null, dealId, seq,
                 ru.dilgorp.domain.enums.Service.ONREG,
-                PaymentStatus.NOT_PAID, null
+                PaymentStatus.NOT_PAID, null, UUID.randomUUID()
         );
 
         shMockConnectorService.longTime();
 
         payment.setDate(LocalDateTime.now());
         paymentRepository.save(payment);
+    }
+
+    public List<Payment> getPayments(Long dealId){
+        return paymentRepository.findAllByDealId(dealId)
+                .stream().map(PaymentEntity::toModel).toList();
     }
 }

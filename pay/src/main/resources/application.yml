@@ -1,0 +1,10 @@
+server:
+  port: 8084
+
+spring:
+  datasource:
+    url: "jdbc:postgresql://postgres-external.demo-messaging:5432/pay"
+    username: "postgres"
+    password: "12345"
+  liquibase:
+    change-log: "classpath:changelog/changelog-master.xml"

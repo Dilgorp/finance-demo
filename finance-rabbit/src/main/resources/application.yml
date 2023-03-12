@@ -44,3 +44,5 @@ spring:
 feign:
   sh-mock-client:
     base-url: http://sh-mock:8081
+  pay-client:
+    base-url: http://pay:8084

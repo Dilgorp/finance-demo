@@ -8,6 +8,7 @@ import ru.dilgorp.finance.rabbit.base.BaseRepositoryTest;
 import ru.dilgorp.finance.rabbit.entity.PaymentEntity;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -19,7 +20,7 @@ class PaymentRepositoryTest extends BaseRepositoryTest {
     @Test
     public void save_happyPath() {
         var payment = new PaymentEntity(null, 1L, 1L, Service.ONREG,
-                PaymentStatus.NOT_PAID, LocalDateTime.now());
+                PaymentStatus.NOT_PAID, LocalDateTime.now(), UUID.randomUUID());
 
         var savedPayment = paymentRepository.save(payment);
         payment.setId(savedPayment.getId());

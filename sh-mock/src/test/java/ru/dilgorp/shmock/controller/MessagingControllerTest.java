@@ -3,6 +3,7 @@ package ru.dilgorp.shmock.controller;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import ru.dilgorp.shmock.base.BaseControllerTest;
 import ru.dilgorp.shmock.service.MessagingService;
 
@@ -20,6 +21,7 @@ class MessagingControllerTest extends BaseControllerTest {
 
         mockMvc.perform(get("/messages/send?seq=1&partitionSize=2&dealsCount=3&partitionsShuffle=4")
                         .contentType(MediaType.APPLICATION_JSON))
+                .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk());
 
         verify(messagingService).send(2, 3, 1, 4);

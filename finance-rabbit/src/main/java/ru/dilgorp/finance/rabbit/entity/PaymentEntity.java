@@ -6,8 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.dilgorp.domain.enums.PaymentStatus;
 import ru.dilgorp.domain.enums.Service;
+import ru.dilgorp.domain.model.Payment;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Table(name = "payment")
 @Entity
@@ -36,4 +38,11 @@ public class PaymentEntity {
 
     @Column(name = "date")
     private LocalDateTime date;
+
+    @Column(name = "external_id")
+    private UUID externalId;
+
+    public Payment toModel(){
+        return new Payment(id, dealId, seq, service, status, date, externalId);
+    }
 }
