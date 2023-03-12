@@ -1,0 +1,19 @@
+version: "3"
+services:
+  redis:
+    container_name: 'redis'
+    image: 'redis:latest'
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis:/data
+  redis-ui:
+    container_name: 'redis-ui'
+    image: 'patrikx3/p3x-redis-ui:latest'
+    ports:
+      - '7843:7843'
+    volumes:
+      - redis-ui:/settings
+volumes:
+  redis:
+  redis-ui:

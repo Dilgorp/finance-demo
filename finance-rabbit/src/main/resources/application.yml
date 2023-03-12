@@ -41,6 +41,14 @@ spring:
   liquibase:
     change-log: "classpath:changelog/changelog-master.xml"
 
+  data:
+    redis:
+      host: redis
+      port: 6379
+
+  cache:
+    type: redis
+
 feign:
   sh-mock-client:
     base-url: http://sh-mock:8081
