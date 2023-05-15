@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class PaymentControllerTest extends BaseControllerTest {
@@ -40,4 +41,21 @@ class PaymentControllerTest extends BaseControllerTest {
         verify(paymentService).getPayment(externalId);
     }
 
+    @Test
+    public void postByExternalId_happyPath() throws Exception {
+        var externalId = UUID.randomUUID();
+        var payment = new PayPayment(1L, externalId, PayPaymentStatus.PROCESSING);
+        var dto = PayPaymentDto.from(payment);
+
+        when(paymentService.newPayment(externalId)).thenReturn(payment);
+
+        var result = mockMvc.perform(post("/payments/external_id/" + externalId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsByteArray();
+
+        assertEquals(dto, objectMapper.readValue(result, PayPaymentDto.class));
+        verify(paymentService).newPayment(externalId);
+    }
 }
