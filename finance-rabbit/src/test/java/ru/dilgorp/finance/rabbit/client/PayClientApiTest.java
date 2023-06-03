@@ -73,4 +73,23 @@ class PayClientApiTest extends BaseTest {
         assertEquals(dto, result);
     }
 
+    @Test
+    @SneakyThrows
+    public void postPayment_happyPath() {
+        var externalId = UUID.randomUUID();
+        var dto = new PayPaymentDto(1L, externalId, PayPaymentStatus.PROCESSING);
+
+        wireMockServer.stubFor(post(urlEqualTo("/payments/external_id/" + externalId))
+                .willReturn(
+                        aResponse()
+                                .withStatus(200)
+                                .withHeader("Content-Type", "application/json")
+                                .withBody(objectMapper.writeValueAsString(dto))
+                )
+        );
+
+        var result = payClientApi.postPayment(externalId);
+
+        assertEquals(dto, result);
+    }
 }

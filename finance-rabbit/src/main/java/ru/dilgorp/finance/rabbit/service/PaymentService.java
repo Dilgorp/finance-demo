@@ -9,6 +9,7 @@ import ru.dilgorp.domain.message.AbstractMessage;
 import ru.dilgorp.domain.model.Payment;
 import ru.dilgorp.finance.rabbit.entity.PaymentEntity;
 import ru.dilgorp.finance.rabbit.repository.PaymentRepository;
+import ru.dilgorp.finance.rabbit.service.connector.PayConnectorService;
 import ru.dilgorp.finance.rabbit.service.connector.ShMockConnectorService;
 
 import java.time.LocalDateTime;
@@ -22,6 +23,8 @@ public class PaymentService {
     private final LockService lockService;
     private final ShMockConnectorService shMockConnectorService;
     private final PaymentRepository paymentRepository;
+
+    private final PayConnectorService payConnectorService;
 
     @Transactional
     public void processMessage(AbstractMessage<?> message){
@@ -39,6 +42,7 @@ public class PaymentService {
 
         payment.setDate(LocalDateTime.now());
         paymentRepository.save(payment);
+        payConnectorService.postPayment(payment.getExternalId());
     }
 
     public List<Payment> getPayments(Long dealId){
