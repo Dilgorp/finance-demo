@@ -2,10 +2,7 @@ package ru.dilgorp.pay.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.dilgorp.domain.dto.PayPaymentDto;
 import ru.dilgorp.pay.service.PaymentService;
 
@@ -24,5 +21,10 @@ public class PaymentController {
 
         Thread.sleep(500);
         return PayPaymentDto.from(paymentService.getPayment(externalId));
+    }
+
+    @PostMapping("/external_id/{external_id}")
+    public PayPaymentDto postByExternalId(@PathVariable("external_id") UUID externalId) {
+        return PayPaymentDto.from(paymentService.newPayment(externalId));
     }
 }

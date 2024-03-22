@@ -27,10 +27,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-/**
- *  @see PaymentController
- */
-class PaymentControllerTest extends BaseControllerTest {
+class PaymentControllerCacheTest extends BaseControllerTest {
 
     @MockBean
     private PaymentService paymentService;
@@ -69,17 +66,25 @@ class PaymentControllerTest extends BaseControllerTest {
         payments.forEach(p -> when(payConnectorService.getPayment(p.externalId()))
                 .thenReturn(payPaymentsDto.get(p.externalId())));
 
-        var result = mockMvc.perform(get("/payments/by_deal/1/with_pay?services=DKP&services=SBR")
+        var result1 = mockMvc.perform(get("/payments/by_deal/1/with_pay?services=DKP&services=SBR")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsByteArray();
 
-        var resultList = objectMapper.readValue(result,
-                objectMapper.getTypeFactory().constructCollectionType(List.class, PaymentWithPayDto.class));
+        var result2 = mockMvc.perform(get("/payments/by_deal/1/with_pay?services=DKP&services=SBR")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsByteArray();
 
-        assertEquals(withPay, resultList);
-        verify(paymentService).getPayments(dealId);
+        var type = objectMapper.getTypeFactory().constructCollectionType(List.class, PaymentWithPayDto.class);
+        var resultList1 = objectMapper.readValue(result1, type);
+        var resultList2 = objectMapper.readValue(result2, type);
+
+        assertEquals(withPay, resultList1);
+        assertEquals(withPay, resultList2);
+        verify(paymentService, times(1)).getPayments(dealId);
         verify(payConnectorService, times(2)).getPayment(any());
     }
 }

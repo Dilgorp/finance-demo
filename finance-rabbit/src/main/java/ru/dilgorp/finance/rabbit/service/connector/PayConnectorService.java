@@ -15,4 +15,8 @@ public class PayConnectorService {
     public PayPaymentDto getPayment(UUID externalId){
         return payClientApi.getPayment(externalId);
     }
+
+    public PayPaymentDto postPayment(UUID externalId){
+        return payClientApi.postPayment(externalId);
+    }
 }

@@ -12,8 +12,8 @@ import ru.dilgorp.pay.repository.PaymentRepository;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class PaymentServiceTest {
@@ -35,5 +35,32 @@ class PaymentServiceTest {
 
         assertEquals(model, result);
         verify(paymentRepository).findByExternalId(entity.getExternalId());
+    }
+
+    @Test
+    public void newPayment_happyPath(){
+        var externalId = UUID.randomUUID();
+        var entity = new PaymentEntity(null, externalId, PayPaymentStatus.PAID);
+
+        when(paymentRepository.findByExternalId(externalId)).thenReturn(entity);
+        var result = paymentService.newPayment(externalId);
+
+        assertEquals(entity.toModel(), result);
+        verify(paymentRepository).findByExternalId(externalId);
+        verify(paymentRepository, times(0)).save(any());
+    }
+
+    @Test
+    public void newPayment_createNewPayment(){
+        var externalId = UUID.randomUUID();
+        var entity = new PaymentEntity(null, externalId, PayPaymentStatus.PROCESSING);
+
+        when(paymentRepository.findByExternalId(externalId)).thenReturn(null);
+        when(paymentRepository.save(entity)).thenReturn(entity);
+        var result = paymentService.newPayment(externalId);
+
+        assertEquals(entity.toModel(), result);
+        verify(paymentRepository).findByExternalId(externalId);
+        verify(paymentRepository).save(entity);
     }
 }

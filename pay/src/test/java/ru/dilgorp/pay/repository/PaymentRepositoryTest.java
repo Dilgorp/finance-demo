@@ -9,6 +9,7 @@ import ru.dilgorp.pay.entity.PaymentEntity;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class PaymentRepositoryTest extends BaseRepositoryTest {
 
@@ -25,5 +26,14 @@ class PaymentRepositoryTest extends BaseRepositoryTest {
         entity.setId(result.getId());
 
         assertEquals(entity, result);
+    }
+
+    @Test
+    public void findByExternalId_paymentNotFound(){
+        var externalId = UUID.randomUUID();
+
+        var result = paymentRepository.findByExternalId(externalId);
+
+        assertNull(result);
     }
 }

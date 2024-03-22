@@ -7,12 +7,14 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import ru.dilgorp.finance.rabbit.configurations.PostgresContainerInitializer;
 import ru.dilgorp.finance.rabbit.configurations.RabbitTestContainerInitializer;
+import ru.dilgorp.finance.rabbit.configurations.RedisContainerInitializer;
 
 @SpringBootTest
 @ActiveProfiles("test")
 @ContextConfiguration(initializers = {
         RabbitTestContainerInitializer.class,
-        PostgresContainerInitializer.class
+        PostgresContainerInitializer.class,
+        RedisContainerInitializer.class
 })
 public abstract class BaseTest {
 
